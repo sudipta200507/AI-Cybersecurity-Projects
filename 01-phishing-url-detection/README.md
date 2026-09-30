@@ -1,9 +1,27 @@
 # Phishing URL Detection
 
-Defensive classification of phishing-related website features using a public UCI benchmark.
+## Goal
+Build a defensive classifier for phishing-related website features.
 
-Dataset: UCI Phishing Websites, ID 327.
+## Dataset
+UCI Phishing Websites, ID 327.
+Official: https://archive.ics.uci.edu/dataset/327/phishing
+Direct archive: https://archive.ics.uci.edu/static/public/327/phishing+websites.zip
 
-Run `pip install -r requirements.txt`, then `python train.py`. The script downloads the dataset through `ucimlrepo`, scales features, trains a Random Forest and saves the model.
+UCI reports 11,055 instances and 30 integer features. citeturn0search3
 
-Use this as a triage experiment. Do not treat a prediction as proof that a live URL is safe.
+## Pipeline
+Dataset → train/test split → Random Forest → precision/recall/F1 → saved model.
+
+## Why Random Forest?
+It provides a strong non-linear tabular baseline and exposes feature importance for later explainability work.
+
+## Run
+`pip install -r requirements.txt`
+`python train.py`
+
+## Security interpretation
+The classifier is a benchmark detector, not a live URL reputation service. Production detection would require fresh threat intelligence, domain/WHOIS/DNS features, adversarial evaluation and analyst review.
+
+## Extensions
+Add cross-validation, calibrated probabilities, SHAP explanations, current URL feeds and a FastAPI inference layer.
