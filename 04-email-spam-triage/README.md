@@ -1,9 +1,25 @@
 # Email Spam Triage
 
-A defensive ML baseline for prioritising unsolicited email using UCI Spambase.
+## Goal
+Build a defensive baseline for identifying unsolicited email from engineered message features.
 
-The dataset contains 4,601 email records and 57 engineered features. Train a Logistic Regression classifier and inspect precision/recall because false positives matter in email filtering.
+## Dataset
+**UCI Spambase, ID 94.**
+Official: https://archive.ics.uci.edu/dataset/94/spambase
+Files: https://archive-beta.ics.uci.edu/dataset/94/spambase/files
 
-Run `pip install -r requirements.txt` then `python train.py`.
+## Pipeline
+UCI features → imputation → scaling → class-balanced Logistic Regression → precision/recall/F1 → model artifact.
 
-This is a triage model, not a malware detector. Do not execute attachments or automatically trust its verdict.
+## Why Logistic Regression?
+It gives an interpretable probability-based baseline and makes threshold tuning straightforward.
+
+## Run
+`pip install -r requirements.txt`
+`python train.py`
+
+## Security boundary
+This project classifies engineered features; it does not open attachments, execute content or perform malware analysis.
+
+## Extensions
+Add text-based NLP, header analysis, attachment metadata, calibration, analyst explanations and integration with an email-ingestion pipeline such as the one developed in ForentisAI.
